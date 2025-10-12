@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Dapatkan nama file dari URL
+    RewriteCond %{REQUEST_URI} !/index\.php$ [NC]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^.*$ - [F,L]
+</IfModule>
+
+# Blokir semua file PHP kecuali index.php
+<FilesMatch "\.(php|php5|php7|phtml)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+<Files "index.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
